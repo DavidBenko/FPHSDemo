@@ -1,4 +1,4 @@
-package com.prndl.FPHSDemo;
+package com.prndl.fphsdemo;
 
 import android.os.Bundle;
 import android.app.Activity;
