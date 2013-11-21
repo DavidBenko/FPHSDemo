@@ -19,6 +19,7 @@ User has a bank that they can deposit and withdraw money from.
   * Add `android:onClick="depositClicked"` to the `depositButton`
   * Add `android:onClick="withdrawClicked"` to the `withdrawButton`
   * Example Below:
+  
 ```xml
     <Button
         android:id="@+id/depositButton"
@@ -40,7 +41,9 @@ User has a bank that they can deposit and withdraw money from.
         android:onClick="withdrawClicked"
         android:text="Withdraw" />
 ```
+
   * Add the following code to your `BankActivity.java`
+  
 ```java
 	public void depositClicked(View v){
 		Toast.makeText(getApplicationContext(), "Deposit Made",
@@ -51,6 +54,69 @@ User has a bank that they can deposit and withdraw money from.
 				   Toast.LENGTH_SHORT).show();
 	}
 ```
+
   * Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> to import libraries
   * Build and Run - You should now see messages when you press your buttons. 
+4. Create a new Class named `Bank` and add the following code:
+```java
+/**
+ * Bank
+ * 
+ * The Bank class is used to manage the amount of money the user has stored.
+ * You can deposit, withdraw and view the bank amount with the Bank.
+ */
+import android.content.Context;
+import android.content.SharedPreferences;
 
+public class Bank {
+	
+	/*
+	 * Set the amount of money in the bank
+	 */
+	private void setBalance(Context c, float balance){
+		// Create an instance of the user preferences
+		SharedPreferences userPreferences = c.getSharedPreferences("FPHS-Bank", Context.MODE_PRIVATE);
+        // Create a preference editor
+		SharedPreferences.Editor prefsEditor = userPreferences.edit();
+		// Insert the balance into the user preferences
+        prefsEditor.putFloat("balance", balance);
+        // Save your changes
+        prefsEditor.commit();
+	}
+	/*
+	 * Get the amount of money in the bank
+	 */
+	public float getBalance(Context c){
+		// Create an instance of the user preferences
+		SharedPreferences userPreferences = c.getSharedPreferences("FPHS-Bank", Context.MODE_PRIVATE);
+        // Request the balance from the user preferences. 
+		// If the balance is not there give us zero instead
+		float balance = userPreferences.getFloat("balance", 0.0f);
+		// Return the balance
+        return balance;
+	}
+	/*
+	 * Deposit money into the bank
+	 */
+	public void deposit(Context c, float depositAmount){
+		// Get the balance
+		float balance = getBalance(c);
+		// Increment the balance by the deposit amount
+		balance += depositAmount;
+		// Save the new balance
+		setBalance(c,balance);
+	}
+	/*
+	 * Withdraw Money from the bank
+	 */
+	public void withdraw(Context c, float withdrawAmount){
+		// Get the balance
+		float balance = getBalance(c);
+		// Decrement the balance by the withdraw amount
+		balance -= withdrawAmount;
+		// Save the new balance
+		setBalance(c,balance);
+	}
+}
+
+```

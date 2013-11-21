@@ -32,11 +32,16 @@ public class BankActivity extends Activity {
 		getMenuInflater().inflate(R.menu.bank, menu);
 		return true;
 	}
-	
+	/*
+	 * onClick Listener for depositButton
+	 */
 	public void depositClicked(View v){
 		Toast.makeText(getApplicationContext(), "Deposit Made",
 				   Toast.LENGTH_SHORT).show();
 	}
+	/*
+	 * onClick Listener for withdrawButton
+	 */
 	public void withdrawClicked(View v){
 		Toast.makeText(getApplicationContext(), "Withdraw Made",
 				   Toast.LENGTH_SHORT).show();
