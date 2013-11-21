@@ -1,24 +1,24 @@
 FPHSDemo
 ========
 
-Demo Android application for Forest Park High School.⋅⋅
+Demo Android application for Forest Park High School.  
 User has a bank that they can deposit and withdraw money from. 
 
 ## Instructions to Make
 1. Create a blank activity project with no navigation
-⋅⋅* Name your MainActivity `BankActivity`
-⋅⋅* If eclipse can't find your `AndroidManifest.xml`, highlight your project folder and hit refresh (F5)
+  * Name your MainActivity `BankActivity`
+  * If eclipse can't find your `AndroidManifest.xml`, highlight your project folder and hit refresh (F5)
 2. Add UI Elements to your `activity_bank.xml`
-⋅⋅* Add a Text View and name it `balanceTextView`
-⋅⋅* Add a Text Field and name it `amountTextField`
-⋅⋅* Change the input type of `amountTextField` to include `number` and `numberDecimal`
-⋅⋅* Add a Button and name it `depositButton`
-⋅⋅* Add a Button and name it `withdrawButton`
+  * Add a Text View and name it `balanceTextView`
+  * Add a Text Field and name it `amountTextField`
+  * Change the input type of `amountTextField` to include `number` and `numberDecimal`
+  * Add a Button and name it `depositButton`
+  * Add a Button and name it `withdrawButton`
 3. Add Event Listeners to your buttons
-⋅⋅* In your `activity_bank.xml` add the following code to your `<Button />` tags
-⋅⋅* Add `android:onClick="depositClicked"` to the `depositButton`
-⋅⋅* Add `android:onClick="withdrawClicked"` to the `withdrawButton`
-⋅⋅* Example Below:
+  * In your `activity_bank.xml` add the following code to your `<Button />` tags
+  * Add `android:onClick="depositClicked"` to the `depositButton`
+  * Add `android:onClick="withdrawClicked"` to the `withdrawButton`
+  * Example Below:
 ```xml
     <Button
         android:id="@+id/depositButton"
@@ -40,7 +40,7 @@ User has a bank that they can deposit and withdraw money from.
         android:onClick="withdrawClicked"
         android:text="Withdraw" />
 ```
-⋅⋅* Add the following code to your `BankActivity.java`
+  * Add the following code to your `BankActivity.java`
 ```java
 	public void depositClicked(View v){
 		Toast.makeText(getApplicationContext(), "Deposit Made",
@@ -51,6 +51,6 @@ User has a bank that they can deposit and withdraw money from.
 				   Toast.LENGTH_SHORT).show();
 	}
 ```
-⋅⋅* Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> to import libraries
-⋅⋅* Build and Run - You should now see messages when you press your buttons. 
+  * Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> to import libraries
+  * Build and Run - You should now see messages when you press your buttons. 
 
