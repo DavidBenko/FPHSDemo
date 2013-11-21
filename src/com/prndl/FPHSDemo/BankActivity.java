@@ -1,8 +1,12 @@
 package com.prndl.fphsdemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +46,28 @@ public class BankActivity extends Activity {
 		// Find the EditText
 		EditText amountTextField = (EditText) findViewById(R.id.amountTextField);
 		// Parse user entry into a floating-point number
-		float number = Float.valueOf(amountTextField.getText().toString());
+		float number = 0.0f;
+		try{
+			number = Float.valueOf(amountTextField.getText().toString());
+		}
+		catch(Exception e){
+			// Create error message
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            // Setting Dialog Title
+            alertDialog.setTitle("Error");
+            // Setting Dialog Message
+            alertDialog.setMessage("Please enter a valid currency amount");
+            // Setting OK Button
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int which) 
+                {
+                    // close dialog
+                	dialog.cancel();
+                }
+            });
+            // Showing Alert Message
+            alertDialog.show();
+		}
 		return number;
 	}
 	
@@ -52,18 +77,25 @@ public class BankActivity extends Activity {
 	private void updateUI(){
 		// Make a new Bank
 		Bank bank = new Bank();
+		float balance = bank.getBalance(getApplicationContext());
 		// Get the Bank balance as cast into a string
-		String balance = Float.toString(bank.getBalance(getApplicationContext()));
+		String balanceStr = String.format("$%.2f",balance);
 		// Find the TextView
 		TextView balanceTextView = (TextView) findViewById(R.id.balanceTextView);
 		// Set the TextView's text to our balance string
-		balanceTextView.setText(balance);
+		balanceTextView.setText(balanceStr);
+		
+		//Set the TextView's color based on balance amount
+		balanceTextView.setTextColor(balance > 0 ? Color.GREEN : Color.RED);
 	}
 	
 	/*
 	 * onClick Listener for depositButton
 	 */
 	public void depositClicked(View v){
+		//Early out if the user entered zero or NaN
+		if (getUserEntry() == 0)return;
+		
 		// Make a new Bank
 		Bank bank = new Bank();
 		// Deposit the amount the user entered from the bank
@@ -78,6 +110,9 @@ public class BankActivity extends Activity {
 	 * onClick Listener for withdrawButton
 	 */
 	public void withdrawClicked(View v){
+		//Early out if the user entered zero or NaN
+		if (getUserEntry() == 0)return;
+		
 		// Make a new Bank
 		Bank bank = new Bank();
 		// Withdraw the amount the user entered from the bank
@@ -87,6 +122,26 @@ public class BankActivity extends Activity {
 		// Show Withdraw Notice
 		Toast.makeText(getApplicationContext(), "Withdraw Made",
 				   Toast.LENGTH_SHORT).show();
+	}
+	/*
+	 * onClick Listener for aboutButton
+	 */
+	public void aboutClicked(MenuItem mi){
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        // Setting Dialog Title
+        alertDialog.setTitle("About");
+        // Setting Dialog Message
+        alertDialog.setMessage("FPHSDemo v1.0.0\nMIT License\nCreated by David Benko\n\nCode Freely Available at:\nhttps://github.com/DavidBenko/FPHSDemo\n\nContact David:\nhttp://davidbenko.me\nhttp://prndl.us");
+        // Setting OK Button
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) 
+            {
+                // close dialog
+            	dialog.cancel();
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();
 	}
 
 }
