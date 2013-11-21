@@ -2,7 +2,8 @@ FPHSDemo
 ========
 
 Demo Android application for Forest Park High School.  
-User has a bank that they can deposit and withdraw money from. 
+User has a bank that they can deposit and withdraw money from.  
+[Google Play Link](https://play.google.com/store/apps/details?id=com.prndl.fphsdemo)
 
 ## Instructions to Make
 1. Create a blank activity project with no navigation
