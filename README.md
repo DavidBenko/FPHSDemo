@@ -9,8 +9,8 @@ User has a bank that they can deposit and withdraw money from.
   * Name your MainActivity `BankActivity`
   * If eclipse can't find your `AndroidManifest.xml`, highlight your project folder and hit refresh (F5)
 2. Add UI Elements to your `activity_bank.xml`
-  * Add a Text View and name it `balanceTextView`
-  * Add a Text Field and name it `amountTextField`
+  * Add a TextView and name it `balanceTextView`
+  * Add an EditText and name it `amountTextField`
   * Change the input type of `amountTextField` to include `number` and `numberDecimal`
   * Add a Button and name it `depositButton`
   * Add a Button and name it `withdrawButton`
@@ -56,8 +56,9 @@ User has a bank that they can deposit and withdraw money from.
 ```
 
   * Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> to import libraries
-  * Build and Run - You should now see messages when you press your buttons. 
-4. Create a new Class named `Bank` and add the following code:
+  * Build and Run - You should now see messages when you press your buttons.
+4. Create a new `Class` named `Bank` and add the following code:
+
 ```java
 /**
  * Bank
@@ -118,5 +119,71 @@ public class Bank {
 		setBalance(c,balance);
 	}
 }
-
 ```
+
+5. Modify your `BankActivity.java`
+  * Add two new methods:
+  
+```java
+	/*
+	 * Gets the number from the user's input
+	 */
+	public float getUserEntry(){
+		// Find the EditText
+		EditText amountTextField = (EditText) findViewById(R.id.amountTextField);
+		// Parse user entry into a floating-point number
+		float number = Float.valueOf(amountTextField.getText().toString());
+		return number;
+	}
+	
+	/*
+	 * Update Balance Label
+	 */
+	private void updateUI(){
+		// Make a new Bank
+		Bank bank = new Bank();
+		// Get the Bank balance as cast into a string
+		String balance = Float.toString(bank.getBalance(getApplicationContext()));
+		// Find the TextView
+		TextView balanceTextView = (TextView) findViewById(R.id.balanceTextView);
+		// Set the TextView's text to our balance string
+		balanceTextView.setText(balance);
+	}
+```
+
+  * Update your button event listeners
+  
+```java
+	/*
+	 * onClick Listener for depositButton
+	 */
+	public void depositClicked(View v){
+		// Make a new Bank
+		Bank bank = new Bank();
+		// Deposit the amount the user entered from the bank
+		bank.deposit(getApplicationContext(), getUserEntry());
+		// Update UI to reflect new balance
+		updateUI();
+		// Show Deposit Notice
+		Toast.makeText(getApplicationContext(), "Deposit Made",
+				   Toast.LENGTH_SHORT).show();
+	}
+	/*
+	 * onClick Listener for withdrawButton
+	 */
+	public void withdrawClicked(View v){
+		// Make a new Bank
+		Bank bank = new Bank();
+		// Withdraw the amount the user entered from the bank
+		bank.withdraw(getApplicationContext(), getUserEntry());
+		// Update UI to reflect new balance
+		updateUI();
+		// Show Withdraw Notice
+		Toast.makeText(getApplicationContext(), "Withdraw Made",
+				   Toast.LENGTH_SHORT).show();
+	}
+```
+
+6. Congratulations!
+  * Build and Run the final product. 
+  * You should now be able to deposit and withdraw from the bank!
