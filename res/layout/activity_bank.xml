@@ -35,6 +35,7 @@
         android:layout_alignLeft="@+id/amountTextField"
         android:layout_below="@+id/amountTextField"
         android:layout_marginTop="15dp"
+        android:onClick="depositClicked"
         android:text="Deposit" />
 
     <Button
@@ -44,6 +45,7 @@
         android:layout_alignBaseline="@+id/depositButton"
         android:layout_alignBottom="@+id/depositButton"
         android:layout_alignRight="@+id/amountTextField"
+        android:onClick="withdrawClicked"
         android:text="Withdraw" />
 
     <TextView
